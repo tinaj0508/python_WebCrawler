@@ -36,7 +36,7 @@
 <body>
     <div id="doc" class="markdown-body container-fluid comment-inner comment-enabled" data-hard-breaks="false" style=""><h1 id="爬蟲流程：以爬取知乎話題為主要例子" data-id="爬蟲流程：以爬取知乎話題為主要例子" style=""><a class="anchor hidden-xs" href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子"><span class="octicon octicon-link"></span></a><span>爬蟲流程：以爬取知乎話題為主要例子</span></h1><p><span>目的：示範爬蟲時努力與反爬蟲抗爭的心路歷程</span></p><blockquote>
 <p><a href="https://www.zhihu.com/topic/19722451/hot" target="_blank" rel="noopener"><span>https://www.zhihu.com/topic/19722451/hot</span></a></p>
-</blockquote><pre><code>import pandas as pd
+</blockquote><hr><pre><code>import pandas as pd
 import re
 from urllib import parse
 import requests
@@ -63,7 +63,7 @@ import os
 import sys
 import googlemaps
 
-</code></pre><h2 id="一、嘗試找request-URL" data-id="一、嘗試找request-URL" style=""><a class="anchor hidden-xs" href="#一、嘗試找request-URL" title="一、嘗試找request-URL"><span class="octicon octicon-link"></span></a><span>一、嘗試找request URL</span></h2><blockquote>
+</code></pre><hr><h2 id="一、嘗試找request-URL" data-id="一、嘗試找request-URL" style=""><a class="anchor hidden-xs" href="#一、嘗試找request-URL" title="一、嘗試找request-URL"><span class="octicon octicon-link"></span></a><span>一、嘗試找request URL</span></h2><blockquote>
 <p><span>打開目標網頁，開F12，點Network，點ALL，找到網頁的result，然後複製其request URL貼到網頁去檢查</span></p>
 </blockquote><p><img src="https://hackmd.io/_uploads/BkuNIZKeT.png" alt="" loading="lazy"></p><p><span>每個都點進去發現沒有可以用的。果斷放棄，用下一招。</span></p><h3 id="其他例子人民網習近平重要講話數據庫" data-id="其他例子人民網習近平重要講話數據庫" style=""><a class="anchor hidden-xs" href="#其他例子人民網習近平重要講話數據庫" title="其他例子人民網習近平重要講話數據庫"><span class="octicon octicon-link"></span></a><span>其他例子:人民網習近平重要講話數據庫</span></h3><blockquote>
 <p><span>可以成功的網站：以人民網習近平重要講話數據庫為例</span>
@@ -93,7 +93,7 @@ for i in range(0,2):
         
         
 df = pd.DataFrame(artDict)        
-</code></pre><p><img src="https://hackmd.io/_uploads/SyluwbYgp.png" alt="" loading="lazy"></p><h2 id="二、找現成的免費的api" data-id="二、找現成的免費的api" style=""><a class="anchor hidden-xs" href="#二、找現成的免費的api" title="二、找現成的免費的api"><span class="octicon octicon-link"></span></a><span>二、找現成的免費的api</span></h2><blockquote>
+</code></pre><p><img src="https://hackmd.io/_uploads/SyluwbYgp.png" alt="" loading="lazy"></p><hr><h2 id="二、找現成的免費的api" data-id="二、找現成的免費的api" style=""><a class="anchor hidden-xs" href="#二、找現成的免費的api" title="二、找現成的免費的api"><span class="octicon octicon-link"></span></a><span>二、找現成的免費的api</span></h2><blockquote>
 <p><a href="https://zhuanlan.zhihu.com/p/87029765" target="_blank" rel="noopener"><span>https://zhuanlan.zhihu.com/p/87029765</span></a></p>
 </blockquote><p><img src="https://hackmd.io/_uploads/Byu9AbKeT.png" alt="" loading="lazy"></p><p><span>看來無法不勞而獲OWO</span></p><h3 id="其他例子googlemap" data-id="其他例子googlemap" style=""><a class="anchor hidden-xs" href="#其他例子googlemap" title="其他例子googlemap"><span class="octicon octicon-link"></span></a><span>其他例子:googlemap</span></h3><blockquote>
 <p><span>爬取googlemap某個捷運站附近的餐廳，有提供api key控管流量</span></p>
@@ -113,7 +113,7 @@ for place in results:
     print(place['place_id'])
     print(gmaps.place(place_id=place['place_id'], language='zh-TW')['result']['name'])
     print(gmaps.place(place_id=place['place_id'], language='zh-TW')['result']['geometry']['location'])
-</code></pre><p><img src="https://hackmd.io/_uploads/SyxFXMFx6.png" alt="" loading="lazy"></p><h2 id="三、獲取網頁html" data-id="三、獲取網頁html" style=""><a class="anchor hidden-xs" href="#三、獲取網頁html" title="三、獲取網頁html"><span class="octicon octicon-link"></span></a><span>三、獲取網頁html</span></h2><p><img src="https://hackmd.io/_uploads/S1x7T-teT.png" alt="" loading="lazy"></p><pre><code>url = "https://www.zhihu.com/topic/19722451/hot?utm_id=0"
+</code></pre><p><img src="https://hackmd.io/_uploads/SyxFXMFx6.png" alt="" loading="lazy"></p><hr><h2 id="三、獲取網頁html" data-id="三、獲取網頁html" style=""><a class="anchor hidden-xs" href="#三、獲取網頁html" title="三、獲取網頁html"><span class="octicon octicon-link"></span></a><span>三、獲取網頁html</span></h2><p><img src="https://hackmd.io/_uploads/S1x7T-teT.png" alt="" loading="lazy"></p><pre><code>url = "https://www.zhihu.com/topic/19722451/hot?utm_id=0"
 url_get = requests.get(url)
 url_get
 </code></pre><p><img src="https://hackmd.io/_uploads/rJpZ2ZFxT.png" alt="" loading="lazy"></p><pre><code>url_meta = url_soup.find_all(attrs={"class": "ContentItem-title"})
@@ -147,7 +147,7 @@ for w in range(0,20):
         # print(title.getText())
         df["Content"][w] = title.getText()
         print(w,'Finished！', df["title"][w])
-</code></pre><p><img src="https://hackmd.io/_uploads/BJTshbYgT.png" alt="" loading="lazy"></p><h2 id="四、selenium一般使用，開啟虛擬瀏覽器" data-id="四、selenium一般使用，開啟虛擬瀏覽器" style=""><a class="anchor hidden-xs" href="#四、selenium一般使用，開啟虛擬瀏覽器" title="四、selenium一般使用，開啟虛擬瀏覽器"><span class="octicon octicon-link"></span></a><span>四、selenium一般使用，開啟虛擬瀏覽器</span></h2><pre><code>url = 'https://www.zhihu.com/topic/19722451/hot' 
+</code></pre><p><img src="https://hackmd.io/_uploads/BJTshbYgT.png" alt="" loading="lazy"></p><hr><h2 id="四、selenium一般使用，開啟虛擬瀏覽器" data-id="四、selenium一般使用，開啟虛擬瀏覽器" style=""><a class="anchor hidden-xs" href="#四、selenium一般使用，開啟虛擬瀏覽器" title="四、selenium一般使用，開啟虛擬瀏覽器"><span class="octicon octicon-link"></span></a><span>四、selenium一般使用，開啟虛擬瀏覽器</span></h2><pre><code>url = 'https://www.zhihu.com/topic/19722451/hot' 
 
 s = Service(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe")
 
@@ -173,7 +173,7 @@ while True:
 </code></pre><p><span>往下滑的過程發現網址突然跳掉了，重新嘗試幾遍時好時壞。</span>
 <img src="https://hackmd.io/_uploads/r1_HtMtxT.png" alt="" loading="lazy"></p><p><span>有些網站的反爬蟲機制就是會這樣~~</span>
 <span>譬如openai</span>
-<img src="https://hackmd.io/_uploads/BkslqGKxa.png" alt="" loading="lazy"></p><h2 id="五、selenium接管現存瀏覽器" data-id="五、selenium接管現存瀏覽器" style=""><a class="anchor hidden-xs" href="#五、selenium接管現存瀏覽器" title="五、selenium接管現存瀏覽器"><span class="octicon octicon-link"></span></a><span>五、selenium接管現存瀏覽器</span></h2><blockquote>
+<img src="https://hackmd.io/_uploads/BkslqGKxa.png" alt="" loading="lazy"></p><hr><h2 id="五、selenium接管現存瀏覽器" data-id="五、selenium接管現存瀏覽器" style=""><a class="anchor hidden-xs" href="#五、selenium接管現存瀏覽器" title="五、selenium接管現存瀏覽器"><span class="octicon octicon-link"></span></a><span>五、selenium接管現存瀏覽器</span></h2><blockquote>
 <p><span>參考:</span>
 <a href="https://blog.csdn.net/xue_11/article/details/125269232" target="_blank" rel="noopener"><span>https://blog.csdn.net/xue_11/article/details/125269232</span></a>
 <span>mac os:</span>
@@ -264,7 +264,7 @@ print(len(DFB['Content']))
 print(len(DFB['Pubtime']))
 </code></pre><p><img src="https://hackmd.io/_uploads/SyKBkXFxT.png" alt="" loading="lazy"></p><pre><code>DFB = pd.DataFrame(DFB)
 DFB.to_csv("20231001_外賣知乎文_話題_掃黃.csv",index=False)
-</code></pre><p><img src="https://hackmd.io/_uploads/rJu0J7Fep.png" alt="" loading="lazy"></p><h2 id="六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例" data-id="六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例" style=""><a class="anchor hidden-xs" href="#六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例" title="六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例"><span class="octicon octicon-link"></span></a><span>六、selenium反覆遇到驗證碼:以學校的人民日報資料庫為例</span></h2><blockquote>
+</code></pre><p><img src="https://hackmd.io/_uploads/rJu0J7Fep.png" alt="" loading="lazy"></p><hr><h2 id="六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例" data-id="六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例" style=""><a class="anchor hidden-xs" href="#六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例" title="六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例"><span class="octicon octicon-link"></span></a><span>六、selenium反覆遇到驗證碼:以學校的人民日報資料庫為例</span></h2><blockquote>
 <p><span>參考:</span><br>
 <a href="https://www.learncodewithmike.com/2021/08/python-selenium-bypass-captcha.html" target="_blank" rel="noopener"><span>https://www.learncodewithmike.com/2021/08/python-selenium-bypass-captcha.html</span></a></p>
 </blockquote><pre><code>driver.get(
@@ -368,7 +368,7 @@ e['Content'] = pd.Series()
         print(e['title'][j])
         sleep(randint(5, 10))
 </code></pre><p><img src="https://hackmd.io/_uploads/HJjmIXKxp.png" alt="" loading="lazy"></p><p><img src="https://hackmd.io/_uploads/Hy8ML7tx6.png" alt="" loading="lazy"></p><p><span>最後結果：</span>
-<img src="https://hackmd.io/_uploads/B1K5d7YeT.png" alt="" loading="lazy"></p><h3 id="備註連結" data-id="備註連結" style=""><a class="anchor hidden-xs" href="#備註連結" title="備註連結"><span class="octicon octicon-link"></span></a><span>備註連結:</span></h3><ol>
+<img src="https://hackmd.io/_uploads/B1K5d7YeT.png" alt="" loading="lazy"></p><hr><h3 id="備註連結" data-id="備註連結" style=""><a class="anchor hidden-xs" href="#備註連結" title="備註連結"><span class="octicon octicon-link"></span></a><span>備註連結:</span></h3><ol>
 <li><span>selenium語法差異:</span>
 <a href="https://stackoverflow.com/questions/72854116/selenium-attributeerror-webdriver-object-has-no-attribute-find-element-by-cs" target="_blank" rel="noopener"><span>https://stackoverflow.com/questions/72854116/selenium-attributeerror-webdriver-object-has-no-attribute-find-element-by-cs</span></a></li>
 <li><span>bs4:</span>
@@ -383,7 +383,7 @@ e['Content'] = pd.Series()
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li><a href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子">爬蟲流程：以爬取知乎話題為主要例子</a><ul class="nav">
+<li class=""><a href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子">爬蟲流程：以爬取知乎話題為主要例子</a><ul class="nav">
 <li><a href="#一、嘗試找request-URL" title="一、嘗試找request URL">一、嘗試找request URL</a><ul class="nav">
 <li><a href="#其他例子人民網習近平重要講話數據庫" title="其他例子:人民網習近平重要講話數據庫">其他例子:人民網習近平重要講話數據庫</a></li>
 </ul>
@@ -411,7 +411,7 @@ e['Content'] = pd.Series()
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
-<li><a href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子">爬蟲流程：以爬取知乎話題為主要例子</a><ul class="nav">
+<li class=""><a href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子">爬蟲流程：以爬取知乎話題為主要例子</a><ul class="nav">
 <li><a href="#一、嘗試找request-URL" title="一、嘗試找request URL">一、嘗試找request URL</a><ul class="nav">
 <li><a href="#其他例子人民網習近平重要講話數據庫" title="其他例子:人民網習近平重要講話數據庫">其他例子:人民網習近平重要講話數據庫</a></li>
 </ul>
