@@ -35,7 +35,7 @@
 
 <body>
     <div id="doc" class="markdown-body container-fluid comment-inner comment-enabled" data-hard-breaks="false" style=""><h1 id="爬蟲流程：以爬取知乎話題為主要例子" data-id="爬蟲流程：以爬取知乎話題為主要例子" style=""><a class="anchor hidden-xs" href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子"><span class="octicon octicon-link"></span></a><span>爬蟲流程：以爬取知乎話題為主要例子</span></h1><p><span>目的：示範爬蟲時努力與反爬蟲抗爭的心路歷程</span></p><blockquote>
-<p><a href="https://www.zhihu.com/topic/19722451/hot" target="_blank" rel="noopener"><span>https://www.zhihu.com/topic/19722451/hot</span></a></p>
+<p><span>目標網站：</span><a href="https://www.zhihu.com/topic/19722451/hot" target="_blank" rel="noopener"><span>https://www.zhihu.com/topic/19722451/hot</span></a></p>
 </blockquote><hr><pre><code>import pandas as pd
 import re
 from urllib import parse
@@ -68,8 +68,7 @@ import googlemaps
 </blockquote><p><img src="https://hackmd.io/_uploads/BkuNIZKeT.png" alt="" loading="lazy"></p><p><span>每個都點進去發現沒有可以用的。果斷放棄，用下一招。</span></p><h3 id="其他例子人民網習近平重要講話數據庫" data-id="其他例子人民網習近平重要講話數據庫" style=""><a class="anchor hidden-xs" href="#其他例子人民網習近平重要講話數據庫" title="其他例子人民網習近平重要講話數據庫"><span class="octicon octicon-link"></span></a><span>其他例子:人民網習近平重要講話數據庫</span></h3><blockquote>
 <p><span>可以成功的網站：以人民網習近平重要講話數據庫為例</span>
 <a href="http://jhsjk.people.cn/result?searchArea=0&amp;keywords=&amp;isFuzzy=0" target="_blank" rel="noopener"><span>http://jhsjk.people.cn/result?searchArea=0&amp;keywords=&amp;isFuzzy=0</span></a></p>
-</blockquote><p><img src="https://hackmd.io/_uploads/H1VnwWFe6.png" alt="" loading="lazy"></p><p><span>request URL 以json格式呈現，最懶人的爬蟲方式，連整理都不用整理了~</span>
-<img src="https://hackmd.io/_uploads/Byn4ubtgT.png" alt="" loading="lazy"></p><pre><code>artDict = {"title":[],
+</blockquote><p><img src="https://hackmd.io/_uploads/H1VnwWFe6.png" alt="" loading="lazy"></p><p><span>request URL 以json格式呈現，最懶人的爬蟲方式，連整理都不用整理了~</span></p><p><img src="https://hackmd.io/_uploads/Byn4ubtgT.png" alt="" loading="lazy"></p><pre><code>fuck= {"title":[],
            "pubtime":[],
            "url":[],
            "source":[]}
@@ -85,16 +84,15 @@ for i in range(0,2):
     GetP = session_requests.get(url, headers=header)
     gj = GetP.json()
     for e in range(0,10):
-        artDict["title"].append(gj["list"][e]["title"])
-        artDict["pubtime"].append(gj["list"][e]["input_date"])
-        artDict["url"].append(
+        fuck["title"].append(gj["list"][e]["title"])
+        fuck["pubtime"].append(gj["list"][e]["input_date"])
+        fuck["url"].append(
             "http://jhsjk.people.cn/article/"+gj["list"][e]["article_id"])
-        artDict["source"].append(gj["list"][e]["origin_name"])
+        fuck["source"].append(gj["list"][e]["origin_name"])
         
-        
-df = pd.DataFrame(artDict)        
+xnxx = pd.DataFrame(fuck)       
 </code></pre><p><img src="https://hackmd.io/_uploads/SyluwbYgp.png" alt="" loading="lazy"></p><hr><h2 id="二、找現成的免費的api" data-id="二、找現成的免費的api" style=""><a class="anchor hidden-xs" href="#二、找現成的免費的api" title="二、找現成的免費的api"><span class="octicon octicon-link"></span></a><span>二、找現成的免費的api</span></h2><blockquote>
-<p><a href="https://zhuanlan.zhihu.com/p/87029765" target="_blank" rel="noopener"><span>https://zhuanlan.zhihu.com/p/87029765</span></a></p>
+<p><span>網友討論：</span><a href="https://zhuanlan.zhihu.com/p/87029765" target="_blank" rel="noopener"><span>https://zhuanlan.zhihu.com/p/87029765</span></a></p>
 </blockquote><p><img src="https://hackmd.io/_uploads/Byu9AbKeT.png" alt="" loading="lazy"></p><p><span>看來無法不勞而獲OWO</span></p><h3 id="其他例子googlemap" data-id="其他例子googlemap" style=""><a class="anchor hidden-xs" href="#其他例子googlemap" title="其他例子googlemap"><span class="octicon octicon-link"></span></a><span>其他例子:googlemap</span></h3><blockquote>
 <p><span>爬取googlemap某個捷運站附近的餐廳，有提供api key控管流量</span></p>
 </blockquote><pre><code>gmaps = googlemaps.Client(key='自己去申請你的API key嘻嘻')
@@ -113,8 +111,8 @@ for place in results:
     print(place['place_id'])
     print(gmaps.place(place_id=place['place_id'], language='zh-TW')['result']['name'])
     print(gmaps.place(place_id=place['place_id'], language='zh-TW')['result']['geometry']['location'])
-</code></pre><p><img src="https://hackmd.io/_uploads/SyxFXMFx6.png" alt="" loading="lazy"></p><hr><h2 id="三、獲取網頁html" data-id="三、獲取網頁html" style=""><a class="anchor hidden-xs" href="#三、獲取網頁html" title="三、獲取網頁html"><span class="octicon octicon-link"></span></a><span>三、獲取網頁html</span></h2><p><img src="https://hackmd.io/_uploads/S1x7T-teT.png" alt="" loading="lazy"></p><pre><code>url = "https://www.zhihu.com/topic/19722451/hot?utm_id=0"
-url_get = requests.get(url)
+</code></pre><p><img src="https://hackmd.io/_uploads/SyxFXMFx6.png" alt="" loading="lazy"></p><hr><h2 id="三、獲取網頁html" data-id="三、獲取網頁html" style=""><a class="anchor hidden-xs" href="#三、獲取網頁html" title="三、獲取網頁html"><span class="octicon octicon-link"></span></a><span>三、獲取網頁html</span></h2><p><img src="https://hackmd.io/_uploads/S1x7T-teT.png" alt="" loading="lazy"></p><pre><code>redtube = "https://www.zhihu.com/topic/19722451/hot?utm_id=0"
+url_get = requests.get(redtube)
 url_get
 </code></pre><p><img src="https://hackmd.io/_uploads/rJpZ2ZFxT.png" alt="" loading="lazy"></p><pre><code>url_meta = url_soup.find_all(attrs={"class": "ContentItem-title"})
 for title in url_meta:
@@ -148,12 +146,12 @@ for w in range(0,20):
         df["Content"][w] = title.getText()
         print(w,'Finished！', df["title"][w])
 </code></pre><p><img src="https://hackmd.io/_uploads/BJTshbYgT.png" alt="" loading="lazy"></p><hr><h2 id="四、selenium一般使用，開啟虛擬瀏覽器" data-id="四、selenium一般使用，開啟虛擬瀏覽器" style=""><a class="anchor hidden-xs" href="#四、selenium一般使用，開啟虛擬瀏覽器" title="四、selenium一般使用，開啟虛擬瀏覽器"><span class="octicon octicon-link"></span></a><span>四、selenium一般使用，開啟虛擬瀏覽器</span></h2><pre><code>url = 'https://www.zhihu.com/topic/19722451/hot' 
-
 s = Service(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe")
-
 driver = webdriver.Chrome(service=s)
 driver.get(url)
-</code></pre><pre><code>SCROLL_PAUSE_TIME = 3
+</code></pre><p><span>往下滑滑到網頁最底部</span></p><blockquote>
+<p><span>參考：</span><a href="https://stackoverflow.com/questions/20986631/how-can-i-scroll-a-web-page-using-selenium-webdriver-in-python" target="_blank" rel="noopener"><span>https://stackoverflow.com/questions/20986631/how-can-i-scroll-a-web-page-using-selenium-webdriver-in-python</span></a></p>
+</blockquote><pre><code>SCROLL_PAUSE_TIME = 3　#網路不好的時候滑一滑會卡住，要讓他停久一點，等網頁載好才能繼續往下滑，不然程式碼很快就會停掉結果網頁沒滑完。
 
 # Get scroll height
 last_height = driver.execute_script("return document.body.scrollHeight")
@@ -184,9 +182,10 @@ while True:
 # .\chrome.exe --remote-debugging-port=9222 --user-data-dir="C:\selenum\AutomationProfile"
 </code></pre><p><img src="https://hackmd.io/_uploads/SJpMoftxp.png" alt="" loading="lazy"></p><pre><code>chrome_options = Options()
 chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
-
-chrome_driver = "C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe"
-driver = webdriver.Chrome(chrome_driver,options=chrome_options)
+#chrome_driver = "C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe"
+#driver = webdriver.Chrome(chrome_driver,options=chrome_options)
+s = Service(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe")
+driver = webdriver.Chrome(service=s,options=chrome_options)
 </code></pre><pre><code>driver.get('https://www.zhihu.com/topic/19722451/hot')
 </code></pre><pre><code>SCROLL_PAUSE_TIME = 3
 
@@ -207,26 +206,29 @@ while True:
     last_height = new_height
 
 </code></pre><p><span>順利爬到最底了</span>
-<img src="https://hackmd.io/_uploads/HyLfhfKlT.png" alt="" loading="lazy"></p><pre><code>#TopicMain &gt; div.ListShortcut &gt; div.Card.TopicFeedList &gt; div &gt; div &gt; div:nth-child(114) &gt; div &gt; div &gt; h2 &gt; div &gt; a
-DF = {
+<img src="https://hackmd.io/_uploads/HyLfhfKlT.png" alt="" loading="lazy"></p><pre><code>
+swag = {
     'title': [],
     'url': []
 }
 
-for i in range(0, 114):
+for i in range(0, 114): #看一下最底部帖子的CSS_SELECTOR的nth-child是第幾個來設定。
+#下面這行是最底部帖子的CSS_SELECTOR
+#TopicMain &gt; div.ListShortcut &gt; div.Card.TopicFeedList &gt; div &gt; div &gt; div:nth-child(114) &gt; div &gt; div &gt; h2 &gt; div &gt; a
+
     try:
         print(driver.find_element(By.CSS_SELECTOR, f"#TopicMain &gt; div.ListShortcut &gt; div &gt; div &gt; div &gt; div:nth-child({i}) &gt; div &gt; div &gt; h2 &gt; span &gt; a").text)
-        DF['title'].append(driver.find_element(By.CSS_SELECTOR, 
+        swag ['title'].append(driver.find_element(By.CSS_SELECTOR, 
             f"#TopicMain &gt; div.ListShortcut &gt; div &gt; div &gt; div &gt; div:nth-child({i}) &gt; div &gt; div &gt; h2 &gt; span &gt; a").text)
         print(driver.find_element(By.CSS_SELECTOR, 
             f"#TopicMain &gt; div.ListShortcut &gt; div &gt; div &gt; div &gt; div:nth-child({i}) &gt; div &gt; div &gt; h2 &gt; span &gt; a").get_attribute('href'))
-        DF['url'].append(driver.find_element(By.CSS_SELECTOR, 
+        swag ['url'].append(driver.find_element(By.CSS_SELECTOR, 
             f"#TopicMain &gt; div.ListShortcut &gt; div &gt; div &gt; div &gt; div:nth-child({i}) &gt; div &gt; div &gt; h2 &gt; span &gt; a").get_attribute('href'))
-    except NoSuchElementException:
+    except NoSuchElementException: #有些連結是影片沒有內文，網頁長的不太一樣，但我們這份程式碼沒有要爬影片，所以用except去排除錯誤，這樣會自動不爬有影片的帖子。
         pass
         
-DF = pd.DataFrame(DF)       
-</code></pre><p><img src="https://hackmd.io/_uploads/HJQEaGFea.png" alt="" loading="lazy"></p><pre><code>DFB = {
+xvideos = pd.DataFrame(swag)
+</code></pre><p><img src="https://hackmd.io/_uploads/HJQEaGFea.png" alt="" loading="lazy"></p><pre><code>jvid = {
     'title': [],
     'url': [],
     'Name': [],
@@ -234,36 +236,38 @@ DF = pd.DataFrame(DF)
     'Content': []
 }
 
-for k in range(0,40):
+for k in range(0,5):
 
-    driver.get(DF['url'][k])
+    driver.get(xvideos['url'][k])
     
-    time.sleep(3)
-    e = driver.find_elements_by_class_name("Post-RichTextContainer")
-    n = driver.find_elements_by_class_name("AuthorInfo-head")
-    t = driver.find_elements_by_class_name("ContentItem-time")
+    time.sleep(3) #網路不好的時候網頁載入不完全，會找不到元素，所以讓程式碼睡一下等網頁載好
+    e = driver.find_elements(By.CLASS_NAME,"Post-RichTextContainer")
+    n = driver.find_elements(By.CLASS_NAME,"AuthorInfo-head")
+    t = driver.find_elements(By.CLASS_NAME,"ContentItem-time")
     #all = driver.find_elements_by_class_name("List-item")
 
     for i in n:
         print(i.text)
-        DFB['title'].append(DF['title'][k])
-        DFB['url'].append(DF['url'][k])
-        DFB['Name'].append(i.text)
+        jvid['title'].append(xvideos['title'][k])
+        jvid['url'].append(xvideos['url'][k])
+        jvid['Name'].append(i.text)
 
     for k in e:
         print(k.text)
-        DFB['Content'].append(k.text)
+        jvid['Content'].append(k.text)
 
     for r in t:
         print(r.text)
-        DFB['Pubtime'].append(r.text)
-</code></pre><p><img src="https://hackmd.io/_uploads/SJkqCMtgT.png" alt="" loading="lazy"></p><pre><code>print(len(DFB['title']))
-print(len(DFB['url']))
-print(len(DFB['Name']))
-print(len(DFB['Content']))
-print(len(DFB['Pubtime']))
-</code></pre><p><img src="https://hackmd.io/_uploads/SyKBkXFxT.png" alt="" loading="lazy"></p><pre><code>DFB = pd.DataFrame(DFB)
-DFB.to_csv("20231001_外賣知乎文_話題_掃黃.csv",index=False)
+        jvid['Pubtime'].append(r.text)
+</code></pre><p><img src="https://hackmd.io/_uploads/SJkqCMtgT.png" alt="" loading="lazy"></p><pre><code>#看一下dict長度是否相等，才方便轉為df
+print(len(jvid['title']))
+print(len(jvid['url']))
+print(len(jvid['Name']))
+print(len(jvid['Content']))
+print(len(jvid['Pubtime']))
+</code></pre><p><img src="https://hackmd.io/_uploads/SyKBkXFxT.png" alt="" loading="lazy"></p><pre><code>pornhub = pd.DataFrame(jvid)
+pornhub.to_csv("20231001_外賣知乎文_掃黃.csv",index=False)
+pornhub.to_excel("20231001_外賣知乎文_掃黃.xlsx",index=False)
 </code></pre><p><img src="https://hackmd.io/_uploads/rJu0J7Fep.png" alt="" loading="lazy"></p><hr><h2 id="六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例" data-id="六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例" style=""><a class="anchor hidden-xs" href="#六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例" title="六、selenium反覆遇到驗證碼以學校的人民日報資料庫為例"><span class="octicon octicon-link"></span></a><span>六、selenium反覆遇到驗證碼:以學校的人民日報資料庫為例</span></h2><blockquote>
 <p><span>參考:</span><br>
 <a href="https://www.learncodewithmike.com/2021/08/python-selenium-bypass-captcha.html" target="_blank" rel="noopener"><span>https://www.learncodewithmike.com/2021/08/python-selenium-bypass-captcha.html</span></a></p>
@@ -271,7 +275,7 @@ DFB.to_csv("20231001_外賣知乎文_話題_掃黃.csv",index=False)
     'https://www-oriprobe-com.proxyone.lib.nccu.edu.tw:8443/peoplesdaily_tc.shtml')
 </code></pre><pre><code>#搜尋設為「掃黃」標題搜尋
 
-Dict01 = {"title": [],
+Bukeyisese = {"title": [],
           "listinfo": [],
           "link": []}
 for j in range(1, 3):
@@ -281,31 +285,31 @@ for j in range(1, 3):
     title = driver.find_elements(By.CLASS_NAME, "open_detail_link")
     for i in title:
         print(i.text)
-        Dict01['title'].append(i.text)
+        Bukeyisese['title'].append(i.text)
     listinfo = driver.find_elements(By.CLASS_NAME, "listinfo")
     for k in listinfo:
         print(k.text)
-        Dict01['listinfo'].append(k.text)
+        Bukeyisese['listinfo'].append(k.text)
     listinfo = driver.find_elements(By.CLASS_NAME, "listinfo")
     links = [h.get_attribute('href') for h in title]
     for j in links:
         print(j)
-        Dict01['link'].append(j)
+        Bukeyisese['link'].append(j)
 
     time.sleep(5)
     sleep(randint(1, 5))
     sleep(randint(0, 2))
-</code></pre><p><img src="https://hackmd.io/_uploads/H1TQPQYxa.png" alt="" loading="lazy"></p><pre><code>e = pd.DataFrame(Dict01)
-e['Content'] = pd.Series()
+</code></pre><p><img src="https://hackmd.io/_uploads/H1TQPQYxa.png" alt="" loading="lazy"></p><pre><code>Keyisese = pd.DataFrame(Bukeyisese)
+Keyisese['Content'] = pd.Series()
 </code></pre><pre><code>for j in range(0,40):
     
     try:
-        driver.get(e['link'][j])
+        driver.get(Keyisese['link'][j])
         time.sleep(2)
         sleep(randint(1, 3))
         Con = driver.find_element(By.CLASS_NAME, "detail_con")
-        e['Content'][j] = Con.text
-        print(e['title'][j])
+        Keyisese['Content'][j] = Con.text
+        print(Keyisese['title'][j])
 
         sleep(randint(5, 10))
         sleep(randint(4, 8))
@@ -364,8 +368,8 @@ e['Content'] = pd.Series()
             "validateCode").send_keys(captcha_text)
         driver.find_element(By.CLASS_NAME, "login_sub").click()
         Con = driver.find_element(By.CLASS_NAME, "detail_con")
-        e['Content'][j] = Con.text
-        print(e['title'][j])
+        Keyisese['Content'][j] = Con.text
+        print(Keyisese['title'][j])
         sleep(randint(5, 10))
 </code></pre><p><img src="https://hackmd.io/_uploads/HJjmIXKxp.png" alt="" loading="lazy"></p><p><img src="https://hackmd.io/_uploads/Hy8ML7tx6.png" alt="" loading="lazy"></p><p><span>最後結果：</span>
 <img src="https://hackmd.io/_uploads/B1K5d7YeT.png" alt="" loading="lazy"></p><hr><h3 id="備註連結" data-id="備註連結" style=""><a class="anchor hidden-xs" href="#備註連結" title="備註連結"><span class="octicon octicon-link"></span></a><span>備註連結:</span></h3><ol>
@@ -383,7 +387,7 @@ e['Content'] = pd.Series()
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li class=""><a href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子">爬蟲流程：以爬取知乎話題為主要例子</a><ul class="nav">
+<li><a href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子">爬蟲流程：以爬取知乎話題為主要例子</a><ul class="nav">
 <li><a href="#一、嘗試找request-URL" title="一、嘗試找request URL">一、嘗試找request URL</a><ul class="nav">
 <li><a href="#其他例子人民網習近平重要講話數據庫" title="其他例子:人民網習近平重要講話數據庫">其他例子:人民網習近平重要講話數據庫</a></li>
 </ul>
@@ -411,7 +415,7 @@ e['Content'] = pd.Series()
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
-<li class=""><a href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子">爬蟲流程：以爬取知乎話題為主要例子</a><ul class="nav">
+<li><a href="#爬蟲流程：以爬取知乎話題為主要例子" title="爬蟲流程：以爬取知乎話題為主要例子">爬蟲流程：以爬取知乎話題為主要例子</a><ul class="nav">
 <li><a href="#一、嘗試找request-URL" title="一、嘗試找request URL">一、嘗試找request URL</a><ul class="nav">
 <li><a href="#其他例子人民網習近平重要講話數據庫" title="其他例子:人民網習近平重要講話數據庫">其他例子:人民網習近平重要講話數據庫</a></li>
 </ul>
